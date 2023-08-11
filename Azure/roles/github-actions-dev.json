@@ -1,0 +1,12 @@
+{
+    "Name": "GHA-WebContentRole",
+    "Description": "Custom role to upload content to Azure Storage blobs",
+    "Actions": [
+        "Microsoft.Storage/storageAccounts/blobServices/containers/read",
+        "Microsoft.Storage/storageAccounts/blobServices/containers/write"
+    ],
+    "NotActions": [],
+    "AssignableScopes": [
+        "/subscriptions/099ddccf-1097-4ff8-a993-eae393c7bb34/resourceGroups/safe-deploy-rg-dev"
+    ]
+}
