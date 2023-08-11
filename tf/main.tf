@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "safe-deploy-rg" {
-  name     = "safe-deploy-rg"
+  name     = var.resource_group_name
   location = "eastus"
 }
 
