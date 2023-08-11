@@ -1,0 +1,14 @@
+{
+    "Name": "CSD-TerraformCloudRole",
+    "Description": "Custom role for Terraform management",
+    "Actions": [
+        "Microsoft.Resources/subscriptions/resourcegroups/read",
+        "Microsoft.Web/serverfarms/*",
+        "Microsoft.Storage/storageAccounts/*",
+        "Microsoft.Web/sites/*"
+    ],
+    "NotActions": [],
+    "AssignableScopes": [
+        "/subscriptions/099ddccf-1097-4ff8-a993-eae393c7bb34/resourceGroups/safe-deploy-rg-dev"
+    ]
+}
