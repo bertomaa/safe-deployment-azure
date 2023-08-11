@@ -2,9 +2,8 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "safe-deploy-rg" {
+data "azurerm_resource_group" "safe-deploy-rg" {
   name     = var.resource_group_name
-  location = "eastus"
 }
 
 resource "azurerm_storage_account" "safe_deploy_storage" {
