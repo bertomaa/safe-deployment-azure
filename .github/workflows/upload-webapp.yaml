@@ -16,8 +16,10 @@ jobs:
       
     - name: Login to Azure
       uses: azure/login@v1
+      env:
+        cred : ${{ secrets.AZURE_CREDENTIALS }}
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: cred
 
     - name: Upload to Azure Blob Storage
       run: |
