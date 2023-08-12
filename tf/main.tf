@@ -47,7 +47,7 @@ resource "azurerm_linux_function_app" "visitors-app" {
 
   app_settings = {
     STORAGE_ACCOUNT_NAME = "safestorage${var.environment}"
-    CONTAINER_NAME       = "webcontent"
-    BLOB_NAME            = "index.html"
+    STORAGE_CONTAINER_NAME       = "webcontent"
+    STORAGE_BLOB_NAME            = "index.html"
   }
 }

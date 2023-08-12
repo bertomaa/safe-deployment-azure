@@ -3,8 +3,8 @@ const { BlobServiceClient } = require("@azure/storage-blob");
 
 module.exports = async function(context, req) {
     const account = process.env["STORAGE_ACCOUNT_NAME"];
-    const containerName = process.env["CONTAINER_NAME"];
-    const blobName = process.env["BLOB_NAME"];
+    const containerName = process.env["STORAGE_CONTAINER_NAME"];
+    const blobName = process.env["STORAGE_BLOB_NAME"];
 
     const url = `https://${account}.blob.core.windows.net`;
     const credential = new DefaultAzureCredential();
