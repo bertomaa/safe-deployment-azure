@@ -7,7 +7,7 @@ on:
 jobs:
   build-and-deploy-functions:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ contains(github.ref_name, 'dev') && 'dev' || '' }}
     steps:
     - name: 'Checkout GitHub Action'
       uses: actions/checkout@v3
@@ -33,6 +33,3 @@ jobs:
         app-name: ${{ vars.FUNCTION_APP_NAME }}
         package: ${{ vars.FUNCTION_APP_PACKAGE_PATH }}
         publish-profile: ${{ secrets.FUNCTION_PUBLISH_PROFILE }}
-
-    - name: Logout of Azure
-      run: az logout
