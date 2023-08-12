@@ -7,8 +7,8 @@ on:
 jobs:
   update-storage:
     runs-on: ubuntu-latest
-    env:
-      environment: ${{ contains(github.ref_name, 'dev') && 'dev' || '' }}
+    environment: dev
+      #environment: ${{ contains(github.ref_name, 'dev') && 'dev' || '' }}
 
     steps:
     - name: Checkout repository
@@ -16,10 +16,8 @@ jobs:
       
     - name: Login to Azure
       uses: azure/login@v1
-      env:
-        CREDS : ${{ secrets.AZURE_CREDENTIALS }}
       with:
-        creds: env.CREDS
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Upload to Azure Blob Storage
       run: |
