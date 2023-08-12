@@ -22,16 +22,17 @@ jobs:
         cd functions
         npm install
 
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    #- name: Login to Azure
+    #  uses: azure/login@v1
+    #  with:
+    #    creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Deploy to Azure Functions
       uses: azure/functions-action@v1.5.0
       with:
         app-name: ${{ vars.FUNCTION_APP_NAME }}
         package: ${{ vars.FUNCTION_APP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.FUNCTION_PUBLISH_PROFILE }}
 
     - name: Logout of Azure
       run: az logout
