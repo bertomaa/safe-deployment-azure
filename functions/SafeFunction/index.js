@@ -1,13 +1,33 @@
-module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+const { DefaultAzureCredential } = require("@azure/identity");
+const { BlobServiceClient } = require("@azure/storage-blob");
 
-    const name = (req.query.name || (req.body && req.body.name));
-    const responseMessage = name
-        ? "Hello, " + name + ". This HTTP triggered function executed successfully."
-        : "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.";
+module.exports = async function(context, req) {
+    const account = process.env["STORAGE_ACCOUNT_NAME"];
+    const containerName = process.env["CONTAINER_NAME"];
+    const blobName = process.env["BLOB_NAME"];
+
+    const url = `https://${account}.blob.core.windows.net`;
+    const credential = new DefaultAzureCredential();
+    const blobServiceClient = new BlobServiceClient(url, credential);
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    const blobClient = containerClient.getBlobClient(blobName);
+
+    let blobContent;
+    try {
+        const buffer = await blobClient.downloadToBuffer();
+        blobContent = buffer.toString();
+    } catch (error) {
+        context.res = {
+            status: 500,
+            body: `Failed to retrieve blob content: ${error.message}`
+        };
+        return;
+    }
 
     context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
+        body: blobContent,
+        headers: {
+            'Content-Type': 'text/html'
+        }
     };
-}
+};
