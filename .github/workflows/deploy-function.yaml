@@ -1,0 +1,35 @@
+name: Deploy Functions to Azure
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build-and-deploy-functions:
+    runs-on: ubuntu-latest
+    environment: ${{ contains(github.ref_name, 'dev') && 'dev' || '' }}
+    steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{vars.NODE_VERSION }}
+
+    - name: Install dependencies
+      run: |
+        cd functions
+        npm install
+
+    #- name: Login to Azure
+    #  uses: azure/login@v1
+    #  with:
+    #    creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure Functions
+      uses: azure/functions-action@v1.5.0
+      with:
+        app-name: ${{ vars.FUNCTION_APP_NAME }}
+        package: ${{ vars.FUNCTION_APP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.FUNCTION_PUBLISH_PROFILE }}

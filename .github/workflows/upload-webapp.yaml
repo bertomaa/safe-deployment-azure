@@ -1,7 +1,7 @@
 name: Upload WebApp to Azure Storage
 
 on:
-  push:
+  #push:
   workflow_dispatch:
 
 jobs:
