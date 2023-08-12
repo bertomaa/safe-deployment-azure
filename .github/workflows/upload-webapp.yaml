@@ -7,6 +7,7 @@ on:
 jobs:
   update-storage:
     runs-on: ubuntu-latest
+    environment: ${{ contains(github.ref_name, 'dev') && 'dev' || '' }}
 
     steps:
     - name: Checkout repository
