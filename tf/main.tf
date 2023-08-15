@@ -12,6 +12,7 @@ resource "azurerm_storage_account" "safe_deploy_storage" {
   location                 = data.azurerm_resource_group.safe-deploy-rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
+   min_tls_version          = "TLS1_2"
 }
 
 resource "azurerm_storage_container" "web_content" {
